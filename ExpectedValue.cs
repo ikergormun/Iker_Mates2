@@ -55,4 +55,35 @@ public class ExpectedValue : MonoBehaviour
         float esp_Dos = (float)p_Dos * v_Dos;
         Debug.Log(esp_Dos);
     }
+    public void CalcularEsperanzaTotal()
+    {
+        // Suma rápida directamente del valor de cada carta por su cantidad entre el total
+        float sumaValores = (n_As * v_As) + (n_Tres * v_Tres) + (n_Rey * v_Rey) + (n_Caballo * v_Caballo) +
+                            (n_Sota * v_Sota) + (n_Siete * v_Siete) + (n_Seis * v_Seis) +
+                            (n_Cinco * v_Cinco) + (n_Cuatro * v_Cuatro) + (n_Dos * v_Dos);
+
+        int totalCartas = n_As + n_Tres + n_Rey + n_Caballo + n_Sota + n_Siete + n_Seis + n_Cinco + n_Cuatro + n_Dos;
+
+        float esperanzaTotal = sumaValores / totalCartas;
+        Debug.Log("El valor esperado es: " + esperanzaTotal);
+    }
+    public void SimularPartidas()
+    {
+        int numeroSimulaciones = 100;
+        int exitos = 0;
+
+        for (int i = 0; i < numeroSimulaciones; i++)
+        {
+            // Simulamos una probabilidad aleatoria entre 0 y 1.
+            float probabilidadAleatoria = Random.Range(0f, 1f);
+
+            if (probabilidadAleatoria < 0.3f)
+            {
+                exitos++;
+            }
+        }
+
+        Debug.Log("Simuladas " + numeroSimulaciones + " partidas.");
+        Debug.Log("Veces que ocurrió el evento (aprox. 30% esperado): " + exitos);
+    }
 }
