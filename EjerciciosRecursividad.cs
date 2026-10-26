@@ -73,6 +73,80 @@ public class EjerciciosRecursividad : MonoBehaviour
         resultado5 = ContarOcurrenciasIterativo(vector2, datoBuscado5);
 
         Debug.Log("El dato " + datoBuscado5 + " aparece " + resultado5 + " veces.");
+
+        //Ej6.
+        int[] vector6 = { 10, 20, 30, 40 };
+
+        // Empezamos a imprimir desde la posición 0
+        ImprimirRecursivo(vector6, 0);
+
+        ImprimirIterativo(vector6);
+
+        //Coste Temporal: Recursiva O(v.length) / O(n) - Iterativa O(v.length) / O(n)
+        //Coste Espacial: Recursiva O(v.length) / O(n) - Iterativa O(1)
+        //Mejor y peor caso iguales.
+
+        //Ej 7.
+        int[] vector7 = { 10, 20, 30, 40 };
+
+        // Empezamos a imprimir desde la última posición (vector.Length - 1)
+        ImprimirInversoRecursivo(vector7, vector7.Length - 1);
+
+        ImprimirInversoIterativo(vector7);
+
+        //Coste Temporal: Recursiva O(v.length) / O(n) - Iterativa O(v.length) / O(n)
+        //Coste Espacial: Recursiva O(v.length) / O(n) - Iterativa O(1)
+        //Mejor y peor caso iguales.
+
+        //Ej 8.
+        int[] vector8 = { 1, 3, 5, 7, 9 };
+
+        // Empezamos a comprobar desde la posición 0
+        bool ordenado8 = EsOrdenadoRecursivo(vector8, 0);
+
+        Debug.Log("¿Está ordenado de menor a mayor? " + ordenado8);
+
+        ordenado8 = EsOrdenadoIterativo(vector8);
+
+        Debug.Log("¿Está ordenado de menor a mayor? " + ordenado8);
+
+        //Coste Temporal: Recursiva O(v.length) / O(n) - Iterativa O(v.length) / O(n)
+        //Coste Espacial: Recursiva O(v.length) / O(n) - Iterativa O(1)
+        //Mejor caso: que los primeros númerosesten desordenados o solo contenga un número
+        //Peor caso: que todos los números esten ordenados o los 2 últimos no lo esten.
+
+        //Ej 9.
+        int[] vector9 = { 7, 2, 9, 4, 1, 5 };
+
+        int min9 = EncontrarMinimoRecursivo(vector9, 0);
+
+        Debug.Log("El menor elemento es: " + min9);
+
+        min9 = EncontrarMinimoIterativo(vector9);
+
+        Debug.Log("El menor elemento es: " + min9);
+
+        //Coste Temporal: Recursiva O(v.length) / O(n) - Iterativa O(v.length) / O(n)
+        //Coste Espacial: Recursiva O(v.length) / O(n) - Iterativa O(1)
+        //Mejor y peor caso iguales.
+
+        //Ej 10.
+        int[] vector10 = { 5, 8, 12, 6 };
+        int d10 = 3;
+
+        // Empezamos a comprobar desde la posición 0
+        bool todosMayores = SonTodosMayoresRecursivo(vector10, d10, 0);
+
+        Debug.Log("¿Son todos mayores que " + d10 + "? " + todosMayores);
+
+        todosMayores = SonTodosMayoresIterativo(vector10, d10);
+
+        Debug.Log("¿Son todos mayores que " + d10 + "? " + todosMayores);
+
+        //Coste Temporal: Recursiva O(v.length) / O(n) - Iterativa O(v.length) / O(n)
+        //Coste Espacial: Recursiva O(v.length) / O(n) - Iterativa O(1)
+        //Mejor caso: si el primer incumple la condición
+        //Peor caso: si ningún número incumple la condición o justo es el último.
     }
 
     // Update is called once per frame
@@ -246,5 +320,140 @@ public class EjerciciosRecursividad : MonoBehaviour
         }
 
         return contador;
+    }
+
+    //Ej 6.
+    void ImprimirRecursivo(int[] v, int i)
+    {
+        // Caso Base: si el índice llega al final del vector, terminamos
+        if (i >= v.Length) return;
+
+        // 1. Imprimimos el elemento actual primero (orden natural)
+        Debug.Log(v[i]);
+
+        // 2. Llamamos a la función para que procese la siguiente posición
+        ImprimirRecursivo(v, i + 1);
+    }
+
+    void ImprimirIterativo(int[] v)
+    {
+        for (int i = 0; i < v.Length; i++)
+        {
+            Debug.Log(v[i]);
+        }
+    }
+
+    //Ej7.
+    void ImprimirInversoRecursivo(int[] v, int i)
+    {
+        // Caso Base: si el índice baja de 0, hemos terminado
+        if (i < 0) return;
+
+        // 1. Imprimimos el elemento actual primero
+        Debug.Log(v[i]);
+
+        // 2. Llamamos a la función con la posición anterior (i - 1)
+        ImprimirInversoRecursivo(v, i - 1);
+    }
+
+    void ImprimirInversoIterativo(int[] v)
+    {
+        // Empezamos desde el final y vamos restando hasta llegar a 0
+        for (int i = v.Length - 1; i >= 0; i--)
+        {
+            Debug.Log(v[i]);
+        }
+    }
+
+    //Ej 8.
+    bool EsOrdenadoRecursivo(int[] v, int i)
+    {
+        // Caso Base 1: Si llegamos al final sin fallos, está ordenado
+        if (i >= v.Length - 1)
+        {
+            return true;
+        }
+
+        // Caso Base 2: Si el elemento actual es mayor que el siguiente, se rompe el orden
+        if (v[i] > v[i + 1]) return false;
+
+        // Caso Recursivo: Comprobamos el siguiente par de elementos (i + 1)
+        return EsOrdenadoRecursivo(v, i + 1);
+    }
+
+    bool EsOrdenadoIterativo(int[] v)
+    {
+        for (int i = 0; i < v.Length - 1; i++)
+        {
+            // Si un elemento es mayor que el siguiente, no está ordenado
+            if (v[i] > v[i + 1]) return false;
+        }
+
+        return true;
+    }
+
+    //Ej 9.
+    int EncontrarMinimoRecursivo(int[] v, int i)
+    {
+        // Caso Base: si estamos en el último elemento, él mismo es su propio mínimo
+        if (i == v.Length - 1)
+        {
+            return v[i];
+        }
+
+        // Paso Recursivo: encontramos el mínimo del resto del vector
+        int minResto = EncontrarMinimoRecursivo(v, i + 1);
+
+        // Comparamos el elemento actual con el mínimo del resto usando un if/else
+        if (v[i] < minResto)
+        {
+            return v[i]; // Si el actual es más pequeño, devolvemos el actual
+        }
+        else
+        {
+            return minResto; // Si no, devolvemos el mínimo que venía del resto
+        }
+    }
+
+    int EncontrarMinimoIterativo(int[] v)
+    {
+        int min = v[0];
+
+        for (int i = 1; i < v.Length; i++)
+        {
+            if (v[i] < min)
+            {
+                min = v[i];
+            }
+        }
+
+        return min;
+    }
+
+    //Ej 10.
+    bool SonTodosMayoresRecursivo(int[] v, int d, int i)
+    {
+        // Caso Base 1: Si hemos llegado al final sin fallos, todos son mayores
+        if (i >= v.Length) return true;
+
+        // Caso Base 2: Si encontramos un elemento menor o igual a d, fallamos al instante
+        if (v[i] <= d) return false;
+
+        // Caso Recursivo: Comprobamos el resto del vector avanzando el índice
+        return SonTodosMayoresRecursivo(v, d, i + 1);
+    }
+
+    bool SonTodosMayoresIterativo(int[] v, int d)
+    {
+        for (int i = 0; i < v.Length; i++)
+        {
+            // Si encontramos uno que no sea mayor, devolvemos false al momento
+            if (v[i] <= d)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
