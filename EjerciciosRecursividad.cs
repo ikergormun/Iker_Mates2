@@ -147,6 +147,21 @@ public class EjerciciosRecursividad : MonoBehaviour
         //Coste Espacial: Recursiva O(v.length) / O(n) - Iterativa O(1)
         //Mejor caso: si el primer incumple la condición
         //Peor caso: si ningún número incumple la condición o justo es el último.
+
+        //Serie de Fibonacci:
+
+        int nFibo = 6;
+        int resultadoFibo = CalcularFibonacciRecursivo(nFibo);
+
+        Debug.Log("El termino " + nFibo + " de Fibonacci es: " + resultadoFibo);
+
+        resultadoFibo = CalcularFibonacciIterativo(nFibo);
+
+        Debug.Log("El termino " + nFibo + " de Fibonacci es: " + resultadoFibo);
+
+        //Coste Temporal: Recursiva O(2^n) - Iterativa O(n)
+        //Coste Espacial: Recursiva O(n) - Iterativa O(1)
+        //Mejor y peor caso iguales.
     }
 
     // Update is called once per frame
@@ -455,5 +470,36 @@ public class EjerciciosRecursividad : MonoBehaviour
         }
 
         return true;
+    }
+
+    //Serie de Fibonacci
+    int CalcularFibonacciRecursivo(int n)
+    {
+        //Caso Base 1: si n es 0, devolvemos 0.
+        if (n <= 0) return 0;
+
+        //Caso Base 2: si n es1, devolvemos 0.
+        if (n == 1) return 1;
+
+        //Caso Recursivo: dos llamadas a la vez.
+        return CalcularFibonacciRecursivo(n - 1) + CalcularFibonacciRecursivo(n - 2);
+    }
+
+    int CalcularFibonacciIterativo(int n)
+    {
+        if (n <= 0) return 0;
+        if (n == 1) return 1;
+
+        int a = 0; //F(0)
+        int b = 1; //F(1)
+        int temp = 0; //variable auxiliar (tambien se puede poner aux = 0.
+
+        for(int i = 2; i <= n; i++)
+        {
+            temp = a + b; //Sumamos las dos anteriores.
+            a = b;        //Desplazamos a.
+            b = temp;     //Desplazamos b.
+        }
+        return b;
     }
 }
